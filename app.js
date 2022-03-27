@@ -9,6 +9,7 @@ dotenv.config();
 
 var indexRouter = require('./routes/index');
 var bookRouter = require('./routes/book');
+var tapahtumaRouter = require('./routes/tapahtuma');
 var userRouter = require('./routes/user');
 var loginRouter = require('./routes/login');
 const jwt = require('jsonwebtoken');
@@ -30,6 +31,7 @@ app.use('/login', loginRouter);
 app.use(authenticateToken);
 //suojatut reitit
 app.use('/book', bookRouter);
+app.use('/tapahtuma', tapahtumaRouter);
 app.use('/user', userRouter);
 
 

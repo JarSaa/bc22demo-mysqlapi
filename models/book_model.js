@@ -5,7 +5,7 @@ const book = {
     return db.query('select * from book where id_book=?', [id], callback);
   },
   getAll: function(callback) {
-    return db.query('select * from book', callback);
+    return db.query('select * from tapahtuma', callback);
   },
   add: function(book, callback) {
     return db.query(

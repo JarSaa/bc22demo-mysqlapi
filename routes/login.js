@@ -7,9 +7,10 @@ const dotenv = require('dotenv');
 
 router.post('/', 
   function(request, response) {
-    if(request.body.username && request.body.password){
-      const user = request.body.username;
-      const pass = request.body.password;
+    //if(request.body.username && request.body.password){
+    if(request.body.kayttajanimi && request.body.salasana){
+      const user = request.body.kayttajanimi;
+      const pass = request.body.salasana;
       
         login.checkPassword(user, function(dbError, dbResult) {
           if(dbError){
@@ -17,7 +18,8 @@ router.post('/',
           }
           else{
             if (dbResult.length > 0) {
-              bcrypt.compare(pass,dbResult[0].password, function(err,compareResult) {
+              //bcrypt.compare(pass,dbResult[0].password, function(err,compareResult) {
+              bcrypt.compare(pass,dbResult[0].salasana, function(err,compareResult) {
                 if(compareResult) {
                   console.log("succes");
                   const token = generateAccessToken({ username: user });
@@ -39,7 +41,7 @@ router.post('/',
         );
       }
     else{
-      console.log("username or password missing");
+      console.log("pooo username or password missing");
       response.send(false);
     }
   }
@@ -47,7 +49,7 @@ router.post('/',
 
 function generateAccessToken(username) {
   dotenv.config();
-  return jwt.sign(username, process.env.MY_TOKEN, { expiresIn: '1800s' });
+  return jwt.sign(username, process.env.MY_TOKEN, { expiresIn: '3600s' });
 }
 
 module.exports=router;
