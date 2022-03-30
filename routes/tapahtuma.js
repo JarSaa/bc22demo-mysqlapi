@@ -9,6 +9,7 @@ router.get('/:id?',
       if (err) {
         response.json(err);
       } else {
+        //response.json(dbResult);
         response.json(dbResult[0]);
       }
     });
@@ -18,6 +19,7 @@ router.get('/:id?',
         response.json(err);
       } else {
         response.json(dbResult);
+        //response.json(dbResult[0]);
       }
     });
   }
@@ -59,4 +61,15 @@ function(request, response) {
   });
 });
 
+
+// router.get('vuodentapahtumat/tapahtuman_pvm'),
+//   function(request, response) {
+//     tapahtuma.getVuosiTapahtuma(request.params.tapahtuman_pvm, function(err, dbResult)){
+//       if (err){
+//         response.json(err);
+//       }
+//       else
+//       response.json(dbResult);
+
+//     }
 module.exports = router;
