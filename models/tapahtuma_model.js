@@ -13,8 +13,8 @@ const tapahtuma = {
   },
   add: function(tapahtuma, callback) {
     return db.query(
-      'insert into tapahtuma (TAPAHTUMA_NIMI,LUOKKA_ID,TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA,OS_MAARA_ALLE29,OS_MAARA_YLI28,OS_MAARA_UUSIA,KESTO_TUNTEINA,AUTETTUJA) values(?,?,?,?,?,?,?,?,?)',
-      [tapahtuma.nimi, tapahtuma.luokka, tapahtuma.pvm, tapahtuma.maara, tapahtuma.maara29, tapahtuma.maara-tapahtuma.maara29, tapahtuma.uusia, tapahtuma.tunti, tapahtuma.autettuja],
+      'insert into tapahtuma (TAPAHTUMA_NIMI,TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA,OS_MAARA_ALLE29,OS_MAARA_UUSIA,KESTO_TUNTEINA,AUTETTUJA) values(?,?,?,?,?,?,?)',
+      [tapahtuma.nimi, tapahtuma.pvm, tapahtuma.maara, tapahtuma.maara29, tapahtuma.uusia, tapahtuma.tunti, tapahtuma.autettuja],
       callback
     );
   },
