@@ -10,6 +10,8 @@ dotenv.config();
 var indexRouter = require('./routes/index');
 var bookRouter = require('./routes/book');
 var tapahtumaRouter = require('./routes/tapahtuma');
+var curyeartapahtumaRouter = require('./routes/curyeartapahtuma');
+var preyeartapahtumaRouter = require('./routes/preyeartapahtuma');
 var userRouter = require('./routes/user');
 var loginRouter = require('./routes/login');
 const jwt = require('jsonwebtoken');
@@ -33,6 +35,9 @@ app.use(authenticateToken);
 app.use('/book', bookRouter);
 app.use('/tapahtuma', tapahtumaRouter);
 app.use('/user', userRouter);
+app.use('/preyeartapahtuma', preyeartapahtumaRouter);
+app.use('/curyeartapahtuma', curyeartapahtumaRouter);
+
 
 
 function authenticateToken(req, res, next) {

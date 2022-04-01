@@ -7,13 +7,13 @@ const tapahtuma = {
    //TAPAHTUMA_ID, TAPAHTUMA_NIMI,LUOKKA_ID,TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA,OS_MAARA_ALLE29,OS_MAARA_YLI28,OS_MAARA_UUSIA,KESTO_TUNTEINA,AUTETTUJA
   },
   getAll: function(callback) {
-    return db.query('select TAPAHTUMA_ID, TAPAHTUMA_NIMI, DATE_FORMAT(TAPAHTUMAN_PVM, "%d.%m.%Y") TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA, OS_MAARA_ALLE29, OS_MAARA_YLI28, OS_MAARA_UUSIA, KESTO_TUNTEINA, AUTETTUJA from tapahtuma order by TAPAHTUMAN_PVM', callback);
+    return db.query('select TAPAHTUMA_ID, TAPAHTUMA_NIMI, DATE_FORMAT(TAPAHTUMAN_PVM, "%d.%m.%Y") TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA, OS_MAARA_ALLE29, OS_MAARA_YLI28, OS_MAARA_UUSIA, KESTO_TUNTEINA, AUTETTUJA from tapahtuma order by DATE(TAPAHTUMAN_PVM)', callback);
     //return db.query('select * from tapahtuma', callback);
     
   },
   add: function(tapahtuma, callback) {
     return db.query(
-      'insert into tapahtuma (TAPAHTUMA_NIMI,TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA,OS_MAARA_ALLE29,OS_MAARA_UUSIA,KESTO_TUNTEINA,AUTETTUJA) values(?,?,?,?,?,?,?)',
+      'insert into tapahtuma (TAPAHTUMA_NIMI,TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA,OS_MAARA_ALLE29,OS_MAARA_UUSIA,KESTO_TUNTEINA,AUTETTUJA) values(?,STR_TO_DATE(?, "%d.%m.%Y"),?,?,?,?,?)',
       [tapahtuma.nimi, tapahtuma.pvm, tapahtuma.maara, tapahtuma.maara29, tapahtuma.uusia, tapahtuma.tunti, tapahtuma.autettuja],
       callback
     );
