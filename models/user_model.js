@@ -7,21 +7,21 @@ const user={
     return db.query('select * from kayttaja', callback);
   },
   getById: function(id, callback) {
-    return db.query('select * from kayttaja where id_kayttaja=?', [id], callback);
+    return db.query('select * from kayttaja where id_kayttaja=$1', [id], callback);
   },
   add: function(user, callback) {
     bcrypt.hash(user.salasana, saltRounds, function(err, hash) {
     //bcrypt.hash(user.password, saltRounds, function(err, hash) {
-      return db.query('insert into kayttaja (kayttajanimi, salasana) values(?,?)',
+      return db.query('insert into kayttaja (kayttajanimi, salasana) values($1,$2)',
       [user.kayttajanimi, hash], callback);
     });
   },
   delete: function(id, callback) {
-    return db.query('delete from kayttaja where id_kayttaja=?', [id], callback);
+    return db.query('delete from kayttaja where id_kayttaja=$1', [id], callback);
   },
   update: function(id, user, callback) {
     bcrypt.hash(user.password, saltRounds, function(err, hash) {
-      return db.query('update kayttaja set kayttaja=?, salasana=? where id_kayttaja=?',
+      return db.query('update kayttaja set kayttaja=$1, salasana=$2 where id_kayttaja=$3',
       [user.kayttajanimi, hash, id], callback);
     });
   }

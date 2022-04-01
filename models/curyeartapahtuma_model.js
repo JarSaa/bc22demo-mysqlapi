@@ -1,12 +1,12 @@
 const db = require('../database');
 
 const curyeartapahtuma = {
-    getById: function(id, callback) {
+  getById: function(id, callback) {
         //return db.query('select * from tapahtuma where tapahtuma_id=?', [id], callback);
-        return db.query('select TAPAHTUMA_ID, TAPAHTUMA_NIMI, LUOKKA_ID, DATE_FORMAT(TAPAHTUMAN_PVM, "%d.%m.%Y") TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA, OS_MAARA_ALLE29, OS_MAARA_YLI28, OS_MAARA_UUSIA, KESTO_TUNTEINA, AUTETTUJA from tapahtuma where DATE_FORMAT(TAPAHTUMAN_PVM, "%Y")=?', [id], callback);   //TAPAHTUMA_ID, TAPAHTUMA_NIMI,LUOKKA_ID,TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA,OS_MAARA_ALLE29,OS_MAARA_YLI28,OS_MAARA_UUSIA,KESTO_TUNTEINA,AUTETTUJA
+        return db.query("select TAPAHTUMA_ID, TAPAHTUMA_NIMI, LUOKKA_ID, to_char(TAPAHTUMAN_PVM,'DD.MM.YYYY') as TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA, OS_MAARA_ALLE29, OS_MAARA_YLI28, OS_MAARA_UUSIA, KESTO_TUNTEINA, AUTETTUJA from tapahtuma where date_part('year', tapahtuman_pvm)=$1", [id], callback);   
       },
   getAll: function(callback) {
-    return db.query('select TAPAHTUMA_ID, TAPAHTUMA_NIMI, DATE_FORMAT(TAPAHTUMAN_PVM, "%d.%m.%Y") TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA, OS_MAARA_ALLE29, OS_MAARA_YLI28, OS_MAARA_UUSIA, KESTO_TUNTEINA, AUTETTUJA from tapahtuma where YEAR(TAPAHTUMAN_PVM) = YEAR(SYSDATE()) order by DATE(TAPAHTUMAN_PVM)', callback);
+    return db.query("select TAPAHTUMA_ID, TAPAHTUMA_NIMI, to_char(TAPAHTUMAN_PVM,'DD.MM.YYYY') as TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA, OS_MAARA_ALLE29, OS_MAARA_YLI28, OS_MAARA_UUSIA, KESTO_TUNTEINA, AUTETTUJA from tapahtuma where date_part('year', tapahtuman_pvm)=date_part('year', now()) order by TAPAHTUMAN_PVM", callback);
      
   },
 };

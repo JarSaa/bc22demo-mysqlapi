@@ -17,9 +17,9 @@ router.post('/',
             response.json(dbError);
           }
           else{
-            if (dbResult.length > 0) {
+            if (dbResult.rows.length > 0) {
               //bcrypt.compare(pass,dbResult[0].password, function(err,compareResult) {
-              bcrypt.compare(pass,dbResult[0].salasana, function(err,compareResult) {
+              bcrypt.compare(pass,dbResult.rows[0].salasana, function(err,compareResult) {
                 if(compareResult) {
                   console.log("succes");
                   const token = generateAccessToken({ username: user });
