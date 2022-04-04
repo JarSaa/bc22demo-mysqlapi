@@ -1,5 +1,5 @@
 const express = require('express');
-const { request } = require('../app');
+//const { request } = require('../app');
 const router = express.Router();
 const tapahtuma = require('../models/tapahtuma_model');
 
