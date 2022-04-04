@@ -25,6 +25,15 @@ const tapahtuma = {
       [tapahtuma.nimi, tapahtuma.pvm, tapahtuma.maara, tapahtuma.maara29, tapahtuma.uusia, tapahtuma.tunti, tapahtuma.autettuja ,id],
       callback
     );
-  }
-};
+  },
+getByYearById: function(pvm, id, callback) {
+  //return db.query('select * from tapahtuma where tapahtuma_id=?', [id], callback);
+  return db.query("select TAPAHTUMA_ID, TAPAHTUMA_NIMI, LUOKKA_ID, to_char(TAPAHTUMAN_PVM,'DD.MM.YYYY') as TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA, OS_MAARA_ALLE29, OS_MAARA_YLI28, OS_MAARA_UUSIA, KESTO_TUNTEINA, AUTETTUJA from tapahtuma where date_part('year', tapahtuman_pvm)=$1 AND TAPAHTUMA_ID=$2", [pvm], [id], callback);   
+},  
+getAllByYear: function(pvm, callback) {
+return db.query("select TAPAHTUMA_ID, TAPAHTUMA_NIMI, to_char(TAPAHTUMAN_PVM,'DD.MM.YYYY') as TAPAHTUMAN_PVM, OS_MAARA_YHTEENSA, OS_MAARA_ALLE29, OS_MAARA_YLI28, OS_MAARA_UUSIA, KESTO_TUNTEINA, AUTETTUJA from tapahtuma where EXTRACT(YEAR FROM tapahtuman_pvm) = $1 order by TAPAHTUMAN_PVM", [pvm],callback);
+}
+}
+
+;
 module.exports = tapahtuma;

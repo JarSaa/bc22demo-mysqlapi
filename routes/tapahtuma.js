@@ -19,12 +19,39 @@ router.get('/:id?',
         response.json(err);
       } else {
         response.json(dbResult.rows);
+        console.log(dbResult.rows)
         //response.json(dbResult[0]);
       }
     });
   }
 });
 
+router.get('/year/:value/:id?',
+function(request, response) {
+  console.log(request.params.value)
+  if (request.params.id) {
+    tapahtuma.getByYearById(request.params.value, request.params.id, function(err, dbResult) {
+      if (err) {
+        response.json(err);
+      } else {
+        //response.json(dbResult);
+        response.json(dbResult.rows[0]);
+      }
+    });
+  } else {
+    tapahtuma.getAllByYear(request.params.value, function(err, dbResult) {
+      if (err) {
+        response.json(err);
+      } else {
+        response.json(dbResult.rows);
+        //response.json(dbResult[0]);
+      }
+    });
+  }
+}
+
+
+);
 
 router.post('/', 
 function(request, response) {
